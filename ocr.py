@@ -6,10 +6,8 @@ from PIL import ImageFont, ImageDraw, Image
 import os
 import uuid
 
+# 현재 파일 경로
 _PATH = os.path.dirname(os.path.abspath(__file__))
-
-# image 파일 경로
-image_path = _PATH + "/sample_data.jpeg"
 
 def read_image(image_path):
     file_name = uuid.uuid4()
