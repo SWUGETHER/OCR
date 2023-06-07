@@ -9,7 +9,7 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
-@app.get("/extract_data")
+@app.post("/extract_data")
 async def extract_data(file: UploadFile):
     filename = f"{str(uuid.uuid4())}.jpg"
     UPLOAD_DIR = "./temp_data/" + filename
