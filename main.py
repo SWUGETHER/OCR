@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile
 import os
 import ocr
+import recommendation as rec
 import uuid
 
 app = FastAPI()
@@ -17,7 +18,16 @@ async def extract_data(file: UploadFile):
     with open(os.path.join(UPLOAD_DIR), "wb") as fp:
         fp.write(file.file.read())
     
-    result = ocr.read_image(UPLOAD_DIR)
+    # OCR
+    name, comp = ocr.read_image(UPLOAD_DIR)
+
+    print(name)
+    print(comp)
+
+    # Content-Based Filtering Recommendation
+    result = rec.recommend(name, comp)
+
+    # 이미지 파일 삭제
     os.remove(UPLOAD_DIR)
 
     return result
