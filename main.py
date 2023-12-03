@@ -21,13 +21,10 @@ async def extract_data(file: UploadFile):
     # OCR
     name, comp = ocr.read_image(UPLOAD_DIR)
 
-    print(name)
-    print(comp)
-
     # Content-Based Filtering Recommendation
     result = rec.recommend(name, comp)
 
     # 이미지 파일 삭제
-    os.remove(UPLOAD_DIR)
+    os.remove(os.path.join(UPLOAD_DIR))
 
     return result

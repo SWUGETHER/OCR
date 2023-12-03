@@ -116,7 +116,6 @@ def extract_data(result):
         name_found = True
 
     if comp_found and name_found:
-        print(pd.value_counts(name_bboxes))
         name = ' '.join(str(t) for t in name_bboxes)
         comp = ' '.join(str(t) for t in comp_bboxes)
         break
@@ -135,7 +134,6 @@ def read_image(image_path):
 
     # 추출 결과 출력
     df = pd.DataFrame(data = result, columns=['Bbox', 'Text', 'Confidence'])
-    print(df)
 
     name, comp = extract_data(result)
     

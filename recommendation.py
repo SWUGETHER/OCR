@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import re
+import random
 
 # 데이터 텍스트 전처리
 def preprocess_text(text):
@@ -29,7 +30,6 @@ def preprocess_input(data, name, comp):
     return name, data
 
 def recommend(name, comp):
-    print(comp)
     df = pd.read_csv('data/product_data.csv')       
     data = df[['제품명', '업체명', '첨가제', '전문의약품', '제조/수입']]
 
@@ -50,6 +50,14 @@ def recommend(name, comp):
 
     # 입력된 첨가제와 유사도가 높은 순으로 추천 제품을 선택
     similar_products = similarity_df[name].sort_values(ascending=False)[1:6]
+
+    # 결과 정제
+    if similar_products[0] < 0.1:
+        rnd = random.sample(range(similarity_df.index.size), 5)
+        similar_products = []
+        similarity_df.reset_index(drop=False, inplace=True)        
+        for i in range(5):
+            similar_products.append(similarity_df.loc[rnd[i]]['제품명'])
 
     # 추천 결과
     return similar_products
