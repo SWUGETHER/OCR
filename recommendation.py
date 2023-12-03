@@ -58,6 +58,8 @@ def recommend(name, comp):
         similarity_df.reset_index(drop=False, inplace=True)        
         for i in range(5):
             similar_products.append(similarity_df.loc[rnd[i]]['제품명'])
+    else:
+        similar_products = similar_products.index.to_list()
 
     # 추천 결과
     return similar_products
